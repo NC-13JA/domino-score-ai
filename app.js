@@ -1,7 +1,7 @@
 (() => {
   "use strict";
   const $ = (s) => document.querySelector(s);
-  const $ = (s) => [...document.querySelectorAll(s)];
+  const $$ = (s) => [...document.querySelectorAll(s)];
   const ScoreUtils = window.DominoScoreUtils || { normalizeScore: value => Math.floor(Number(value)), applyWinnerScore: (scores, winnerId) => Object.fromEntries(Object.keys(scores).map(id => [id, id === winnerId ? scores[id] : 0])) };
   const STORAGE_KEY = "domino-score-ai-v1";
   const i18n = {
