@@ -34,10 +34,6 @@ jobs:
         run: npm test
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
-      - name: Start test server
-        run: python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/domino-server.log 2>&1 &
-      - name: Wait for test server
-        run: npx wait-on http://127.0.0.1:4173
       - name: Browser smoke tests
         run: npm run test:e2e
 
