@@ -118,6 +118,9 @@
   </dialog>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script>window.Module={locateFile:function(path){return "assets/"+path},onRuntimeInitialized:function(){window.dispatchEvent(new Event("opencv-ready"))}};</script>
+  <script src="assets/opencv.js" onerror="this.remove()"></script>
+  <script src="score-utils.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
