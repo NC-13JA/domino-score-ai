@@ -1,0 +1,9 @@
+{
+  "appId": "com.nc13ja.dominoscoreai",
+  "appName": "Domino Score AI",
+  "webDir": "web",
+  "bundledWebRuntime": false,
+  "android": {
+    "allowMixedContent": false
+  }
+}
