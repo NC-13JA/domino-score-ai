@@ -13,12 +13,11 @@ test("loads Arabic interface and starts a match", async ({ page }) => {
 
 test("records a round and keeps totals after reload", async ({ page }) => {
   await page.goto("/");
-  await page.evaluate(() => localStorage.clear());
-  await page.reload();
   await page.locator("#newMatchBtn").click();
   await page.locator("#playerNameFields input").nth(0).fill("Player A");
   await page.locator("#playerNameFields input").nth(1).fill("Player B");
   await page.locator("#matchForm button[type=submit]").click();
+  await expect(page.locator("#scoreInputs input")).toHaveCount(2);
   await page.locator("#scoreInputs input").nth(0).fill("12");
   await page.locator("#scoreInputs input").nth(1).fill("8");
   await page.locator("#saveRoundBtn").click();
