@@ -59,6 +59,7 @@
       <section class="tool-grid">
         <button class="tool-card" id="addPlayerBtn"><span class="tool-icon cyan">♙</span><span><b data-i18n="players">اللاعبون</b><small data-i18n="playersDesc">إدارة أسماء اللاعبين</small></span><span class="arrow">‹</span></button>
         <button class="tool-card" id="rulesBtn"><span class="tool-icon violet">⚙</span><span><b data-i18n="rules">قواعد التسجيل</b><small data-i18n="rulesDesc">إعدادات احتساب النقاط</small></span><span class="arrow">‹</span></button>
+        <button class="tool-card" id="archiveBtn"><span class="tool-icon cyan">◷</span><span><b data-i18n="archive">أرشيف المباريات</b><small data-i18n="archiveDesc">استعراض المباريات السابقة</small></span><span class="arrow">‹</span></button>
       </section>
       <p class="offline-note"><span class="offline-dot"></span><span data-i18n="offlineReady">تصل التحديثات الجديدة عند فتح الموقع عبر الإنترنت</span></p>
     </main>
@@ -96,7 +97,14 @@
     <div class="dialog-head"><div><div class="eyebrow muted" data-i18n="management">الإدارة</div><h2 data-i18n="players">اللاعبون</h2></div><button type="button" class="close-btn" data-close="playersDialog">×</button></div>
     <p class="helper" data-i18n="playersDialogDesc">يمكنك تغيير أسماء اللاعبين في المباراة الحالية.</p>
     <div id="managePlayersList" class="player-fields"></div>
+    <button id="addManagedPlayerBtn" class="btn btn-soft full">＋ <span data-i18n="addPlayer">إضافة لاعب</span></button>
     <button id="savePlayersBtn" class="btn btn-primary full" data-i18n="saveChanges">حفظ التغييرات</button>
+  </dialog>
+
+  <dialog id="archiveDialog" class="dialog">
+    <div class="dialog-head"><div><div class="eyebrow muted" data-i18n="matchLog">سجل المباراة</div><h2 data-i18n="archive">أرشيف المباريات</h2></div><button type="button" class="close-btn" data-close="archiveDialog">×</button></div>
+    <p class="helper" data-i18n="archiveHint">افتح مباراة سابقة لمراجعة نتائجها. سيتم حفظ المباراة الحالية في الأرشيف أولًا.</p>
+    <div id="archiveList" class="history-list"></div>
   </dialog>
 
   <dialog id="rulesDialog" class="dialog">
