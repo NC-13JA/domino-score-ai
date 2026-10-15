@@ -19,3 +19,13 @@ Improve camera-based domino tile and pip detection, add configurable scoring rul
 
 ## License
 MIT
+
+
+## Camera pip counting (experimental)
+The browser now includes a local image-processing estimate that highlights dark connected components that may be domino pips. Lighting, shadows, tile borders, and backgrounds can cause false positives or missed dots, so verify the count and correct it before using it. This is not yet a trained computer-vision model and is not equivalent to a dedicated camera-recognition model.
+
+## Spinner scoring option
+The rules dialog includes an optional manual x2 round multiplier. Domino rules vary, so enable it only when it matches your table rules. Blank sides naturally contribute zero detected pips.
+
+## Android build
+A GitHub Actions workflow builds a debug APK using Capacitor. After a successful run, download the domino-score-ai-debug-apk artifact from the Actions run.
