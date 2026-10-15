@@ -15,7 +15,7 @@ Open `index.html` in a browser, or enable GitHub Pages from Settings → Pages a
 - PWA manifest and service worker for offline use after first load
 
 ## Roadmap
-Improve camera-based domino tile and pip detection, add configurable scoring rules, and refine app artwork.
+Improve camera-based domino tile and pip detection using bundled OpenCV.js, run unit and browser smoke tests in GitHub Actions, and keep the Android build gated on passing tests.
 
 ## License
 MIT
@@ -29,3 +29,9 @@ The rules dialog includes an optional manual x2 round multiplier. Domino rules v
 
 ## Android build
 A GitHub Actions workflow builds a debug APK using Capacitor. After a successful run, download the domino-score-ai-debug-apk artifact from the Actions run.
+
+
+## Automated checks
+- `npm test` runs score utility unit tests.
+- `npm run test:e2e` runs Playwright browser smoke tests.
+- Android builds bundle OpenCV.js locally; no network connection is needed to load the computer-vision library. The detector remains experimental and must be checked against real domino photos.
