@@ -85,7 +85,9 @@
     <div class="scan-preview" id="scanPreview"><span>⚄</span><small data-i18n="previewHint">معاينة الصورة تظهر هنا</small></div>
     <label class="btn btn-primary full file-label" for="tilePhoto">▦ <span data-i18n="takePhoto">التقاط صورة / اختيار صورة</span></label>
     <input id="tilePhoto" class="visually-hidden" type="file" accept="image/*" capture="environment">
+    <button type="button" id="analyzePhotoBtn" class="btn btn-soft full" data-i18n="analyzePhoto">تحليل الصورة وعدّ النقاط</button>
     <div id="scanResult" class="scan-result hidden"></div>
+    <div id="scanControls" class="scan-controls hidden"><div class="scan-count"><button type="button" id="scanMinus" class="btn btn-soft">−</button><strong id="detectedCount">0</strong><button type="button" id="scanPlus" class="btn btn-soft">+</button></div><label for="scanPlayer" data-i18n="applyToPlayer">إضافة المجموع إلى لاعب</label><select id="scanPlayer"></select><button type="button" id="applyDetectedBtn" class="btn btn-primary full" data-i18n="applyToPlayer">إضافة المجموع إلى لاعب</button></div>
     <button type="button" id="useScanBtn" class="btn btn-soft full hidden" data-i18n="useManual">متابعة إدخال النقاط يدويًا</button>
     <p class="tiny-note" data-i18n="privacyNote">تتم المعالجة داخل المتصفح؛ لا تُرفع الصورة إلى خادم.</p>
   </dialog>
@@ -103,6 +105,7 @@
     <select id="ruleMode"><option value="points" data-i18n="pointsMode">إدخال نقاط كل لاعب</option><option value="winner" data-i18n="winnerMode">الفائز يأخذ نقاط الخصوم</option></select>
     <label for="targetScoreRule" data-i18n="targetScore">حدّ النقاط (0 = بلا حد)</label>
     <input id="targetScoreRule" type="number" min="0" max="9999" inputmode="numeric">
+    <label for="spinnerMultiplier" data-i18n="spinnerRule">مضاعفة نقاط الجولة عند وجود Spinner</label><p class="helper" data-i18n="spinnerHint">فعّلها يدويًا للجولة التي تحتوي على Spinner.</p><select id="spinnerMultiplier"><option value="1" data-i18n="normal">عادي ×1</option><option value="2" data-i18n="double">مضاعف ×2</option></select><label class="spinner-round-toggle"><input id="spinnerThisRound" type="checkbox"><span data-i18n="spinnerRule">مضاعفة نقاط الجولة عند وجود Spinner</span></label>
     <button id="saveRulesBtn" class="btn btn-primary full" data-i18n="saveChanges">حفظ التغييرات</button>
   </dialog>
 
