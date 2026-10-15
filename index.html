@@ -47,7 +47,7 @@
       <section id="roundEntry" class="panel form-panel hidden">
         <div class="section-head compact"><div><div class="eyebrow muted" data-i18n="roundEntry">تسجيل جولة</div><h2 data-i18n="addRound">أضف نقاط الجولة</h2></div><span class="round-number" id="nextRound">01</span></div>
         <p class="helper" data-i18n="roundHint">أدخل النقاط التي حصل عليها كل لاعب في هذه الجولة.</p>
-        <div id="scoreInputs" class="score-inputs"></div>
+        <div id="winnerPicker" class="winner-picker hidden" aria-label="Choose the round winner"></div><p id="winnerHint" class="helper hidden" data-i18n="winnerModeHint">اختر الفائز أولًا، ثم أدخل مجموع النقاط التي سيحصل عليها في خانته فقط.</p><div id="scoreInputs" class="score-inputs"></div>
         <div class="form-actions"><button id="saveRoundBtn" class="btn btn-primary grow" data-i18n="saveRound">حفظ الجولة</button><button id="cancelRoundBtn" class="btn btn-soft" data-i18n="cancel">إلغاء</button></div>
       </section>
 
@@ -83,12 +83,12 @@
   <dialog id="scanDialog" class="dialog">
     <div class="dialog-head"><div><div class="eyebrow muted" data-i18n="cameraAssist">مساعدة الكاميرا</div><h2 data-i18n="scanTiles">مسح القطع</h2></div><button type="button" class="close-btn" data-close="scanDialog">×</button></div>
     <p class="helper" data-i18n="scanDesc">التقط صورة للقطع. ستساعدك الصورة على مراجعة النقاط قبل إدخالها؛ تأكد من النتيجة يدويًا.</p>
-    <div class="scan-preview" id="scanPreview"><span>⚄</span><small data-i18n="previewHint">معاينة الصورة تظهر هنا</small></div>
+    <div class="scan-tip">📷 صوّر القطع من الأعلى، بإضاءة جيدة وخلفية بسيطة. المس كل نقطة في الصورة لعدّها.</div><div class="scan-preview" id="scanPreview"><span>⚄</span><small data-i18n="previewHint">معاينة الصورة تظهر هنا</small></div>
     <label class="btn btn-primary full file-label" for="tilePhoto">▦ <span data-i18n="takePhoto">التقاط صورة / اختيار صورة</span></label>
     <input id="tilePhoto" class="visually-hidden" type="file" accept="image/*" capture="environment">
     <button type="button" id="analyzePhotoBtn" class="btn btn-soft full" data-i18n="analyzePhoto">تحليل الصورة وعدّ النقاط</button>
     <div id="scanResult" class="scan-result hidden"></div>
-    <div id="scanControls" class="scan-controls hidden"><div class="scan-count"><button type="button" id="scanMinus" class="btn btn-soft">−</button><strong id="detectedCount">0</strong><button type="button" id="scanPlus" class="btn btn-soft">+</button></div><label for="scanPlayer" data-i18n="applyToPlayer">إضافة المجموع إلى لاعب</label><select id="scanPlayer"></select><button type="button" id="applyDetectedBtn" class="btn btn-primary full" data-i18n="applyToPlayer">إضافة المجموع إلى لاعب</button></div>
+    <div id="scanControls" class="scan-controls hidden"><div class="scan-count"><button type="button" id="scanMinus" class="btn btn-soft" aria-label="Decrease count">−</button><strong id="detectedCount">0</strong><button type="button" id="scanPlus" class="btn btn-soft" aria-label="Increase count">+</button><button type="button" id="scanReset" class="btn btn-soft">↺ مسح العدّ</button></div><label for="scanPlayer" data-i18n="applyToPlayer">إضافة المجموع إلى لاعب</label><select id="scanPlayer"></select><button type="button" id="applyDetectedBtn" class="btn btn-primary full" data-i18n="applyToPlayer">إضافة المجموع إلى لاعب</button></div>
     <button type="button" id="useScanBtn" class="btn btn-soft full hidden" data-i18n="useManual">متابعة إدخال النقاط يدويًا</button>
     <p class="tiny-note" data-i18n="privacyNote">تتم المعالجة داخل المتصفح؛ لا تُرفع الصورة إلى خادم.</p>
   </dialog>
