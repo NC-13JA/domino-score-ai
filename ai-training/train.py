@@ -1,24 +1,20 @@
-"""Fine-tune a small pretrained YOLO detector on labeled domino half-tiles.
+"""Fine-tune YOLO on the public double-six domino whole-tile dataset.
 
-Run from repository root after preparing dataset/ and installing ultralytics:
-    python -m pip install ultralytics
-    python ai-training/train.py
-
-This script does not run in the Android app; it produces candidate weights that
-must be evaluated and exported before mobile integration.
+Run after ai-training/download_dataset.py. Roboflow's exported dataset/data.yaml
+is authoritative for the annotation class order; this script validates its presence.
 """
 from pathlib import Path
 from ultralytics import YOLO
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA = ROOT / "ai-training" / "data.yaml"
-if not (ROOT / "dataset" / "images" / "train").exists():
+DATA = ROOT / "dataset" / "data.yaml"
+
+if not DATA.exists():
     raise SystemExit(
-        "No labeled dataset found. See ai-training/README.md; "
-        "collect and label double-six domino half-tile images first."
+        "Dataset config not found. First run: python ai-training/download_dataset.py"
     )
 
-model = YOLO("yolo11n.pt")  # pretrained generic detector, fine-tuned on our labels
+model = YOLO("yolo11n.pt")
 model.train(
     data=str(DATA),
     epochs=80,
@@ -26,5 +22,5 @@ model.train(
     batch=8,
     patience=15,
     project=str(ROOT / "ai-training" / "runs"),
-    name="domino-double-six",
+    name="domino-whole-tile-28",
 )
