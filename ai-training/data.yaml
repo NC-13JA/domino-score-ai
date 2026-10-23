@@ -1,13 +1,35 @@
-# Starter schema for a labeled double-six domino dataset.
-# Create dataset/images/{train,val} and dataset/labels/{train,val} before training.
-path: dataset
-train: images/train
-val: images/val
+# Domino 5 uses 28 classes for whole-tile combinations (0-0 through 6-6).
+# The downloader writes the authoritative exported annotation schema to dataset/data.yaml.
+# train.py uses dataset/data.yaml to preserve the source class-ID mapping.
+path: ../dataset
+train: train/images
+val: valid/images
 names:
-  0: pip_value_0
-  1: pip_value_1
-  2: pip_value_2
-  3: pip_value_3
-  4: pip_value_4
-  5: pip_value_5
-  6: pip_value_6
+  0: domino_tile_0_0
+  1: domino_tile_0_1
+  2: domino_tile_0_2
+  3: domino_tile_0_3
+  4: domino_tile_0_4
+  5: domino_tile_0_5
+  6: domino_tile_0_6
+  7: domino_tile_1_1
+  8: domino_tile_1_2
+  9: domino_tile_1_3
+  10: domino_tile_1_4
+  11: domino_tile_1_5
+  12: domino_tile_1_6
+  13: domino_tile_2_2
+  14: domino_tile_2_3
+  15: domino_tile_2_4
+  16: domino_tile_2_5
+  17: domino_tile_2_6
+  18: domino_tile_3_3
+  19: domino_tile_3_4
+  20: domino_tile_3_5
+  21: domino_tile_3_6
+  22: domino_tile_4_4
+  23: domino_tile_4_5
+  24: domino_tile_4_6
+  25: domino_tile_5_5
+  26: domino_tile_5_6
+  27: domino_tile_6_6
