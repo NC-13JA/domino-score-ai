@@ -1,0 +1,13 @@
+# Starter schema for a labeled double-six domino dataset.
+# Create dataset/images/{train,val} and dataset/labels/{train,val} before training.
+path: dataset
+train: images/train
+val: images/val
+names:
+  0: pip_value_0
+  1: pip_value_1
+  2: pip_value_2
+  3: pip_value_3
+  4: pip_value_4
+  5: pip_value_5
+  6: pip_value_6
