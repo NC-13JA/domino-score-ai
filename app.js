@@ -69,9 +69,24 @@
         const contour=contours.get(i),area=cv.contourArea(contour),rect=cv.boundingRect(contour);
         if(area>=minArea&&area<=maxArea&&rect.width>=3&&rect.height>=3&&rect.width<=maxDim&&rect.height<=maxDim){
           const ratio=rect.width/rect.height,perimeter=cv.arcLength(contour,true),circularity=perimeter?4*Math.PI*area/(perimeter*perimeter):0;
-          if(ratio>.55&&ratio<1.8&&circularity>.42){
+          if(ratio>.68&&ratio<1.45&&circularity>.58){
             const m=cv.moments(contour);
-            if(m.m00)candidates.push({x:m.m10/m.m00,y:m.m01/m.m00,r:Math.max(4,Math.max(rect.width,rect.height)*.72),area});
+            if(m.m00){
+              const x=m.m10/m.m00,y=m.m01/m.m00,r=Math.max(3,Math.max(rect.width,rect.height)*.5);
+              // Keep only dark, compact marks surrounded by a substantially lighter tile surface.
+              // This rejects dark table texture, shadows and most of the black divider line.
+              let ringSum=0,ringN=0,coreSum=0,coreN=0;
+              const inner=Math.max(1,r*.45),outer=Math.max(inner+2,r*1.65);
+              for(let a=0;a<24;a++){
+                const angle=2*Math.PI*a/24;
+                const ix=Math.round(x+Math.cos(angle)*inner),iy=Math.round(y+Math.sin(angle)*inner);
+                const ox=Math.round(x+Math.cos(angle)*outer),oy=Math.round(y+Math.sin(angle)*outer);
+                if(ix>=0&&iy>=0&&ix<w&&iy<h){coreSum+=gray.ucharPtr(iy,ix)[0];coreN++}
+                if(ox>=0&&oy>=0&&ox<w&&oy<h){ringSum+=gray.ucharPtr(oy,ox)[0];ringN++}
+              }
+              const core=coreN?coreSum/coreN:255,ring=ringN?ringSum/ringN:0;
+              if(ring>118&&ring-core>28)candidates.push({x,y,r:Math.max(4,r*1.12),area,contrast:ring-core});
+            }
           }
         }
         contour.delete();
