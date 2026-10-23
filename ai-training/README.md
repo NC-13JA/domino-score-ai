@@ -1,36 +1,40 @@
-# Domino Score AI — model training starter
+# Domino Score AI — dataset and model training
 
-This folder prepares a repeatable path to fine-tune a pretrained YOLO model for **double-six dominoes**.
+## Selected public dataset
 
-## Important
-There is no trustworthy general-purpose pretrained model that already understands domino pip values. A generic pretrained model will not reliably count pips. Fine-tuning requires labeled domino photos. The app's current OpenCV detector remains the active fallback until a trained model is evaluated and packaged.
+- Project: https://universe.roboflow.com/proyect-train/domino-5
+- The public page currently lists 5,758 images, 28 whole-tile classes, and CC BY 4.0. A version listing reports version 1 with 5,598 images; the exact exported version may differ.
+- Attribute the source in any redistributed dataset/model documentation and re-check the dataset's license and terms before publishing.
 
-## Dataset layout
-Create this layout on a computer or cloud notebook (phone-only dataset labeling is possible but slow):
+## Download from a phone or computer
 
+The files are not stored in this Git repository because image datasets are large and the export requires a Roboflow API key. Run these commands in Termux, a computer, or a cloud notebook:
+
+```bash
+python -m pip install roboflow ultralytics
+export ROBOFLOW_API_KEY="YOUR_PRIVATE_KEY"
+python ai-training/download_dataset.py
+python ai-training/train.py
 ```
-dataset/
-  images/
-    train/
-    val/
-  labels/
-    train/
-    val/
+
+Keep the API key private. Do not paste it into GitHub, source files, screenshots, or chat. On Android/Termux, package availability and training performance may vary; Google Colab is usually more practical for training.
+
+The downloader uses the Roboflow Python SDK to export version 1 as YOLO format. The downloaded `dataset/data.yaml` is authoritative for class IDs. Inspect it before training and verify that its train/validation paths and class names match the downloaded labels.
+
+## What this model learns
+
+This dataset labels each *whole domino tile* as one of 28 combinations (0-0 through 6-6). It does **not** label each half as one of seven pip values. This is still useful for recognizing the value of a complete tile, but it is a different task from detecting each half independently. The app's current scanner is not automatically changed by training this model.
+
+## After training
+
+The best weights are written to `ai-training/runs/domino-whole-tile-28/weights/best.pt`. Validate on held-out photos captured with the target Android phone, including varied angles, lighting, surfaces, and occlusions. Only then export, for example:
+
+```bash
+yolo export model=ai-training/runs/domino-whole-tile-28/weights/best.pt format=onnx imgsz=640
 ```
 
-Use YOLO detection labels: one line per object, normalized `class x_center y_center width height`. Define 7 classes in `data.yaml` for pip values 0 through 6, and label each *half-tile* as one object. Keep validation photos from different sessions/backgrounds than training photos. Include blank halves, doubles, shadows, angled tiles, light and dark surfaces, and partial occlusion.
+ONNX export is only a model-format step; the Android app still needs a compatible inference runtime, preprocessing/postprocessing, class mapping, and tests before it can use the model. Do not claim the model is integrated until those changes are implemented and the APK is tested.
 
-## Recommended training
-Use a cloud notebook or a computer with Python. Training on an Android phone is not a practical first choice: it is slow, hot, memory-constrained, and difficult to reproduce. The phone can capture and review examples, while training runs elsewhere.
+## Privacy and licensing
 
-Install `ultralytics`, then fine-tune a small pretrained detector (for example `yolo11n.pt`) on your labeled dataset. Do not ship the resulting model until precision/recall and full-photo total-count accuracy have been tested on held-out photos.
-
-## Android integration gate
-Before enabling a model in the app:
-1. Export to a mobile runtime format supported by the app.
-2. Add the model and runtime to the Android build.
-3. Test model loading offline on the actual device.
-4. Compare predictions with the existing OpenCV fallback.
-5. Keep uncertain detections reviewable; never silently treat low-confidence predictions as ground truth.
-
-No trained weights are included yet because the repository currently contains no labeled domino dataset.
+Do not upload personal photos automatically. Keep the dataset source attribution and license information with any redistributed derivatives. Review the dataset provider's current terms and the model/library licenses before distributing a commercial app.
